@@ -1,10 +1,12 @@
-var express = require('express');
+const express = require("express");
+const service = require("./service.js");
 var app = express();
-
-app.get('/', function (req, res) {
-  res.send('Hello World!');
+app.use(express.static("public"));
+app.get("/timestamp/:TIME", function(req, resp) {
+  var time = req.params.TIME;
+  var responseDate = service.getResponseDate(time);
+  resp.json(responseDate);
 });
-
 app.listen(8080, function () {
-  console.log('Example app listening on port 8080!');
+  console.log("Timestamp app listening on port 8080!");
 });
